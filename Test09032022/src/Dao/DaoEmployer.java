@@ -1,5 +1,6 @@
 package Dao;
 
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -77,11 +78,16 @@ public class DaoEmployer {
 			PreparedStatement s =  cnx.prepareStatement(sql);
 			s.setInt(1, id);
 			ResultSet rs =s.executeQuery();
-			em.setId(rs.getInt(1));
-			em.setName(rs.getString(2));
-			em.setPassword(rs.getString(3));
-			em.setEmail(rs.getString(4));
-			em.setCountry(rs.getString(5));
+			
+			while(rs.next()) {
+			      em.setId(rs.getInt(1));
+			      em.setName(rs.getString(2));
+			      em.setPassword(rs.getString(3));
+			      em.setEmail(rs.getString(4));
+			      em.setCountry(rs.getString(5));
+			}
+			
+			
 			cnx.close();
 		}catch(Exception e1) {System.out.println(e1);}
 		return em;
